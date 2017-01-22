@@ -1,1 +1,2 @@
-[http://jope-ratebeer.herokuapp.com]
+* [http://jope-ratebeer.herokuapp.com/breweries]
+* [http://jope-ratebeer.herokuapp.com/beers]
