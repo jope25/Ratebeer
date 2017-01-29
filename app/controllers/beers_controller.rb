@@ -15,10 +15,12 @@ class BeersController < ApplicationController
   # GET /beers/new
   def new
     @beer = Beer.new
+    passer
   end
 
   # GET /beers/1/edit
   def edit
+    passer
   end
 
   # POST /beers
@@ -28,7 +30,7 @@ class BeersController < ApplicationController
 
     respond_to do |format|
       if @beer.save
-        format.html { redirect_to @beer, notice: 'Beer was successfully created.' }
+        format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
         format.json { render :show, status: :created, location: @beer }
       else
         format.html { render :new }
@@ -65,6 +67,11 @@ class BeersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_beer
       @beer = Beer.find(params[:id])
+    end
+
+    def passer
+      @breweries = Brewery.all
+      @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
