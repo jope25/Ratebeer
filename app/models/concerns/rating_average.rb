@@ -3,8 +3,5 @@ module RatingAverage
 
   def average_rating
     ratings.average :score
-
-#   ratings_scores = ratings.map { |rating| rating.score}
-#   ratings_scores.inject(:+).fdiv(ratings.count)
   end
 end

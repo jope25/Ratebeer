@@ -3,7 +3,7 @@
 <h2><%= @brewery.name %></h2>
 
 <p>
-  <i> Estabished at <%= @brewery.year%></i>
+  <i> Established at <%= @brewery.year%></i>
 </p>
 
 <p> Number of beers <%= @brewery.beers.count %> </p>
@@ -14,12 +14,13 @@
   <% end %>
 </p>
 
-<p>
-  <% if @brewery.ratings.empty? %>
-      Has no ratings!
-  <% else %>
-      Has <%= pluralize @brewery.ratings.count, 'rating' %>, average <%= @brewery.average_rating %>
-  <% end %>
-</p>
+<% if @brewery.ratings.empty? %>
+    <p>No ratings</p>
+<% else %>
+    <p><%= pluralize(@brewery.ratings.count, 'rating') %>, average score is <%= @brewery.average_rating %></p>
+<% end %>
 
-<%= link_to 'Edit', edit_brewery_path(@brewery) %>
+<% if current_user %>
+  <%= link_to 'Edit', edit_brewery_path(@brewery) %> |
+  <%= link_to 'Destroy', @brewery, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

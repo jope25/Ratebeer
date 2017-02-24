@@ -17,13 +17,11 @@
       <% byebug if beer.brewery.nil? %>
       <tr>
         <td><%= link_to beer.name, beer %></td>
-        <td><%= beer.style %></td>
+        <td><%= link_to beer.style.name, beer.style %></td>
         <td><%= link_to beer.brewery.name, beer.brewery %></td>
-        <td><%= link_to 'Edit', edit_beer_path(beer) %></td>
-        <td><%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-<%= link_to 'New Beer', new_beer_path %>
+<%= link_to('New Beer', new_beer_path) if current_user %>
