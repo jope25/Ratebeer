@@ -1,1 +1,1 @@
-[http://jope-ratebeer.herokuapp.com]
+http://jope-ratebeer.herokuapp.com
