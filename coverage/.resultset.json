@@ -150,6 +150,7 @@
       "/home/jope/githubProjektit/ratebeer/app/controllers/sessions_controller.rb": [
         1,
         1,
+        10,
         null,
         null,
         1,
@@ -177,7 +178,7 @@
         1,
         null,
         1,
-        170,
+        179,
         124,
         null,
         null,
@@ -256,7 +257,7 @@
         1,
         null,
         1,
-        19,
+        18,
         null,
         null,
         null,
@@ -805,6 +806,6 @@
         0
       ]
     },
-    "timestamp": 1487963359
+    "timestamp": 1488052944
   }
 }

@@ -15,8 +15,8 @@ group :development, :test do
 end
 
 group :production do
-   gem 'pg'
-   gem 'rails_12factor'
+  gem 'pg'
+  gem 'rails_12factor'
 end
 
 group :development do
@@ -25,6 +25,8 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'rails_layout'
 end
 
 group :test do
@@ -57,6 +59,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'httparty'
+
+gem 'bootstrap-sass'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

@@ -1,6 +1,8 @@
-<p id="notice"><%= notice %></p>
-
-<h2><%= @brewery.name %></h2>
+<h2><%= @brewery.name %>
+  <% if not @brewery.active  %>
+      <span class="label label-info">retired</span>
+  <% end %>
+</h2>
 
 <p>
   <i> Established at <%= @brewery.year%></i>
@@ -21,6 +23,6 @@
 <% end %>
 
 <% if current_user %>
-  <%= link_to 'Edit', edit_brewery_path(@brewery) %> |
-  <%= link_to 'Destroy', @brewery, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Edit', edit_brewery_path(@brewery), class:'btn btn-default btn-sm' %>
+  <%= link_to 'Destroy', @brewery, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger btn-sm' %>
 <% end %>

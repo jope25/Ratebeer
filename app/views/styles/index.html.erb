@@ -1,11 +1,21 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Styles</h1>
 
-<ul>
-  <% @styles.each do |style| %>
-      <li><%= link_to style.name, style %></li>
-  <% end %>
-</ul>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Average rating</th>
+  </tr>
+  </thead>
 
-<%= link_to('New Style', new_style_path) if current_user %>
+  <tbody>
+  <% @styles.each do |style| %>
+      <tr>
+        <td><%= link_to style.name, style %></td>
+        <td><%= style.average_rating %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to('New Style', new_style_path, class:'btn btn-default') if current_user %>
