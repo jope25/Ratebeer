@@ -1,8 +1,8 @@
 <table class="table table-hover">
   <thead>
   <tr>
-    <th>Name</th>
-    <th>Year</th>
+    <th> <%= link_to 'Name', breweries_path(order:"name") %> </th>
+    <th> <%= link_to 'Year', breweries_path(order:"year") %> </th>
     <th>Average rating</th>
   </tr>
   </thead>
@@ -12,7 +12,7 @@
       <tr>
         <td><%= link_to brewery.name, brewery %></td>
         <td><%= brewery.year %></td>
-        <td><%= brewery.average_rating %></td>
+        <td><%= round brewery.average_rating %></td>
       </tr>
   <% end %>
   </tbody>

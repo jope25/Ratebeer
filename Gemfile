@@ -35,6 +35,9 @@ group :test do
   gem 'launchy'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'selenium-webdriver', '2.53.4'
+  gem "chromedriver-helper"
+  gem 'database_cleaner'
 end
 
 # Use SCSS for stylesheets
@@ -54,13 +57,14 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'httparty'
-
 gem 'bootstrap-sass'
+gem 'jquery-turbolinks'
+gem 'rack-mini-profiler'
+gem 'sucker_punch', '~> 2.0'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

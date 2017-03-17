@@ -12,7 +12,7 @@
   <% @styles.each do |style| %>
       <tr>
         <td><%= link_to style.name, style %></td>
-        <td><%= style.average_rating %></td>
+        <td><%= round style.average_rating %></td>
       </tr>
   <% end %>
   </tbody>

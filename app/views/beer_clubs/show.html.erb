@@ -29,6 +29,6 @@
         <% end %>
     <% end %>
     <br>
-    <%= link_to 'Edit', edit_beer_club_path(@beer_club), class:'btn btn-default btn-sm' %>
-    <%= link_to 'Destroy', @beer_club, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger btn-sm' %>
 <% end %>
+
+<%= edit_and_destroy_buttons(@beer_club) %>

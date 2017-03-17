@@ -1,4 +1,14 @@
-<h1><%= @user.username %></h1>
+<h2>
+  <%= @user.username %>
+  <% if current_user_is_admin? %>
+      <% if @user.blocked  %>
+          <span class="label label-info">account frozen</span>
+          <%= link_to "reactivate account", toggle_frozen_user_path(@user.id), method: :post, class: "btn btn-warning btn-sm" %>
+      <% else %>
+          <%= link_to "freeze account", toggle_frozen_user_path(@user.id), method: :post, class: "btn btn-warning btn-sm" %>
+      <% end %>
+  <% end %>
+</h2>
 
 <% if @user.beer_clubs.any? %>
     <p>member of
@@ -14,7 +24,7 @@
     <p> Favorite beer: <%= link_to @user.favorite_beer.name, @user.favorite_beer %> </p>
     <p> Favorite brewery: <%= link_to @user.favorite_brewery.name, @user.favorite_brewery %> </p>
     <p> Favorite style: <%= link_to @user.favorite_style.name, @user.favorite_style %> </p>
-    <p> average rating: <%= @user.average_rating %></p>
+    <p> average rating: <%= round @user.average_rating %></p>
 
     <h3>ratings</h3>
 

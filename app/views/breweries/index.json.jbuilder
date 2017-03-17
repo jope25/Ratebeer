@@ -1,1 +1,4 @@
-json.array! @breweries, partial: 'breweries/brewery', as: :brewery
+json.array!(@breweries) do |b|
+  json.extract! b, :id, :name, :year, :active
+  json.beers b.beers.count
+end

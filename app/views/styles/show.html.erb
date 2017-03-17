@@ -17,13 +17,10 @@
     <% if @style.ratings.empty? %>
         <p>have not yet been rated!</p>
     <% else %>
-        <p>have been rated <%= pluralize(@style.ratings.count, 'time') %>, average score is <%= @style.average_rating %></p>
+        <p>have been rated <%= pluralize(@style.ratings.count, 'time') %>, average score is <%= round @style.average_rating %></p>
     <% end %>
 <% else %>
     <p>No beers added, thus no ratings.</p>
 <% end %>
 
-<% if current_user %>
-    <%= link_to 'Edit', edit_style_path(@style), class:'btn btn-default btn-sm' %>
-    <%= link_to 'Destroy', @style, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger btn-sm' %>
-<% end %>
+<%= edit_and_destroy_buttons(@style) %>

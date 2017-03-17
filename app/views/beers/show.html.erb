@@ -1,14 +1,21 @@
-<h2> <%= @beer %> </h2>
+<% cache @beer do %>
 
-<p>
-  <strong>Style:</strong>
-  <%= link_to @beer.style.name, @beer.style %>
-</p>
+    <h2>
+      <%= @beer.name %>
+    </h2>
 
-<% if @beer.ratings.empty? %>
-    <p>beer has not yet been rated!</p>
-<% else %>
-    <p>has been rated <%= pluralize(@beer.ratings.count, 'time') %>, average score is <%= @beer.average_rating %></p>
+    <p>
+      <%= link_to @beer.style.name, @beer.style %>
+      brewed by
+      <%= link_to @beer.brewery.name, @beer.brewery %>
+    </p>
+
+    <% if @beer.ratings.empty? %>
+        <p>beer has not yet been rated! </p>
+    <% else %>
+        <p>Has <%= pluralize(@beer.ratings.count,'rating') %>, average <%= round(@beer.average_rating) %> </p>
+    <% end %>
+
 <% end %>
 
 <% if current_user %>
@@ -20,6 +27,6 @@
         <%= f.submit class:"btn btn-primary btn-xs" %>
     <% end %>
     <br>
-    <%= link_to 'Edit', edit_beer_path(@beer), class:'btn btn-default btn-sm' %>
-    <%= link_to 'Destroy', @beer, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger btn-sm' %>
 <% end %>
+
+<%= edit_and_destroy_buttons(@beer) %>

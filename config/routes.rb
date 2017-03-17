@@ -14,6 +14,14 @@ Rails.application.routes.draw do
   delete 'signout', to: 'sessions#destroy'
   resources :places, only:[:index, :show]
   post 'places', to:'places#search'
+  resources :breweries do
+    post 'toggle_activity', on: :member
+  end
+  resources :users do
+    post 'toggle_frozen', on: :member
+  end
+  get 'beerlist', to:'beers#list'
+  get 'brewerylist', to:'breweries#list'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :toggle_frozen]
+  before_action :ensure_that_signed_in, except: [:index, :show, :new, :create]
+  before_action :ensure_that_admin_signed_in, only: :toggle_frozen
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.includes(:beers, :ratings).all.order(:username)
   end
 
   # GET /users/1
@@ -62,6 +64,14 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def toggle_frozen
+    @user.update_attribute :blocked, (not @user.blocked)
+
+    new_status = @user.blocked? ? "frozen" : "activated"
+
+    redirect_to :back, notice:"account status changed to #{new_status}"
   end
 
   private

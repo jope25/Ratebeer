@@ -19,4 +19,8 @@ class Brewery < ActiveRecord::Base
       errors.add(:year, "can't be greater than current year.")
     end
   end
+
+  def self.top(n)
+    Brewery.all.sort_by{ |b| -(b.average_rating||0) }[0,n]
+  end
 end

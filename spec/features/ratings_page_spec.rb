@@ -40,7 +40,7 @@ describe "Rating" do
     end
 
     it "their total number is shown at ratings page" do
-      expect(page).to have_content "Total of #{Rating.count} ratings given"
+      expect(page).to have_content "#{Rating.count} ratings given"
     end
   end
 end

@@ -1,11 +1,12 @@
 class StylesController < ApplicationController
   before_action :set_style, only: [:show, :edit, :update, :destroy]
   before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_admin_signed_in, only: :destroy
 
   # GET /styles
   # GET /styles.json
   def index
-    @styles = Style.all
+    @styles = Style.all.order(:name)
   end
 
   # GET /styles/1

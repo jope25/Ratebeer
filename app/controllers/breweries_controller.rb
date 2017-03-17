@@ -1,12 +1,36 @@
 class BreweriesController < ApplicationController
-  before_action :set_brewery, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :set_brewery, only: [:show, :edit, :update, :destroy, :toggle_activity]
+  before_action :ensure_that_signed_in, except: [:index, :show, :list]
+  before_action :ensure_that_admin_signed_in, only: :destroy
+  before_action :skip_if_cached, only:[:index]
 
   # GET /breweries
   # GET /breweries.json
   def index
-    @active_breweries = Brewery.active
-    @retired_breweries = Brewery.retired
+    order = params[:order] || 'name'
+
+    @active_breweries = Brewery.active.sort_by{ |b| b.send(order) }
+    @retired_breweries = Brewery.retired.sort_by{ |b| b.send(order) }
+
+    @breweries = @active_breweries+@retired_breweries
+
+    session[:reverse] ||= false
+
+    if order == session[:previous_order]
+      if not session[:reverse]
+        @active_breweries = @active_breweries.reverse
+        @retired_breweries = @retired_breweries.reverse
+      end
+
+      session[:reverse] = !session[:reverse]
+    end
+
+    session[:previous_order] = order
+  end
+
+
+
+  def list
   end
 
   # GET /breweries/1
@@ -26,6 +50,7 @@ class BreweriesController < ApplicationController
   # POST /breweries
   # POST /breweries.json
   def create
+    expire_fragments
     @brewery = Brewery.new(brewery_params)
 
     respond_to do |format|
@@ -42,6 +67,7 @@ class BreweriesController < ApplicationController
   # PATCH/PUT /breweries/1
   # PATCH/PUT /breweries/1.json
   def update
+    expire_fragments
     respond_to do |format|
       if @brewery.update(brewery_params)
         format.html { redirect_to @brewery, notice: 'Brewery was successfully updated.' }
@@ -56,11 +82,20 @@ class BreweriesController < ApplicationController
   # DELETE /breweries/1
   # DELETE /breweries/1.json
   def destroy
+    expire_fragments
     @brewery.destroy
     respond_to do |format|
       format.html { redirect_to breweries_url, notice: 'Brewery was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def toggle_activity
+    @brewery.update_attribute :active, (not @brewery.active)
+
+    new_status = @brewery.active? ? "active" : "retired"
+
+    redirect_to :back, notice:"brewery activity status changed to #{new_status}"
   end
 
   private
@@ -73,4 +108,13 @@ class BreweriesController < ApplicationController
     def brewery_params
       params.require(:brewery).permit(:name, :year, :active)
     end
+
+  def skip_if_cached
+    @order = params[:order] || 'name'
+    return render :index if request.format.html? and fragment_exist?( "brewerylist-#{@order}"  )
+  end
+
+  def expire_fragments
+    ["brewerylist-name", "brewerylist-year"].each{ |f| expire_fragment(f) }
+  end
 end
